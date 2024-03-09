@@ -1,7 +1,5 @@
 %global debug_package %{nil}
 
-%bcond_without bootstrap2
-
 # Run tests in check section
 # tests for cmd and internal fail
 %bcond_with check
@@ -16,17 +14,23 @@ Version:		1.0.4
 Summary:	Database client and tools for the Go vulnerability database
 Name:		golang-x-vuln
 
-Release:	1
+Release:	2
 Source0:	https://github.com/golang/vuln/archive/v%{version}/vuln-%{version}.tar.gz
-%if %{with bootstrap2}
-# Generated from Source100
-Source3:	vendor.tar.zst
-Source100:	golang-package-dependencies.sh
-%endif
 URL:		https://github.com/golang/vuln
 License:	BSD with advertising
 Group:		Development/Other
 BuildRequires:	compiler(go-compiler)
+BuildRequires:	golang(github.com/google/go-cmp/cmp)
+BuildRequires:	golang(golang.org/x/mod/semver)
+BuildRequires:	golang(golang.org/x/sync/errgroup)
+BuildRequires:	golang(golang.org/x/tools/go/buildutil)
+BuildRequires:	golang(golang.org/x/tools/go/callgraph)
+BuildRequires:	golang(golang.org/x/tools/go/callgraph/cha)
+BuildRequires:	golang(golang.org/x/tools/go/callgraph/vta)
+BuildRequires:	golang(golang.org/x/tools/go/packages)
+BuildRequires:	golang(golang.org/x/tools/go/ssa)
+BuildRequires:	golang(golang.org/x/tools/go/ssa/ssautil)
+BuildRequires:	golang(golang.org/x/tools/go/types/typeutil)
 
 %description
 Go's support for vulnerability management includes tooling for
@@ -67,12 +71,6 @@ building other packages which use import path with
 
 %prep
 %autosetup -p1 -n vuln-%{version}
-
-rm -rf vendor
-
-%if %{with bootstrap2}
-tar xf %{S:3}
-%endif
 
 %build
 %gobuildroot
