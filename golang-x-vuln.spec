@@ -7,14 +7,14 @@
 # https://github.com/golang/vuln
 %global goipath		golang.org/x/vuln
 %global forgeurl	https://github.com/golang/vuln
-Version:		1.0.4
+Version:		1.1.2
 
 %gometa
 
 Summary:	Database client and tools for the Go vulnerability database
 Name:		golang-x-vuln
 
-Release:	2
+Release:	1
 Source0:	https://github.com/golang/vuln/archive/v%{version}/vuln-%{version}.tar.gz
 URL:		https://github.com/golang/vuln
 License:	BSD with advertising
@@ -70,7 +70,7 @@ building other packages which use import path with
 #-----------------------------------------------------------------------
 
 %prep
-%autosetup -p1 -n vuln-%{version}
+%autosetup -p1 -n vuln-1.1.2
 
 %build
 %gobuildroot
